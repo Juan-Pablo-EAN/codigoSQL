@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código SQL</title>
+</head>
+<body>
+    <style>
+        body {
+            color: white;
+            background-color: #222222;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        span {
+            color: rgb(45, 143, 255);
+        }
+        .codigo {
+            display: block;
+            white-space: pre-wrap;
+            width: 100%;
+            max-width: 700px;
+        }
+    </style>
+    <div class="codigo">
+<span>CREATE TABLE</span> Articulo 
+    (
+     id <span>INTEGER NOT NULL</span> , 
+     referencia <span>VARCHAR</span> (20) <span>NOT NULL</span> , 
+     color <span>VARCHAR</span> (10) <span>NOT NULL</span> , 
+     material <span>VARCHAR</span> (10) <span>NOT NULL</span> , 
+     descripcion <span>VARCHAR</span> (30) <span>NOT NULL</span> , 
+     precioUnitario <span>INTEGER</span> <span>NOT NULL</span> , 
+     cantidad <span>INTEGER</span> <span>NOT NULL</span> , 
+     Ventas_id <span>INTEGER</span> <span>NOT NULL</span> 
+    )
+<span>GO</span>
+
+<span>ALTER TABLE</span> Articulo <span>ADD CONSTRAINT</span> Articulo_PK <span>PRIMARY KEY CLUSTERED</span> (id)
+     WITH (
+     <span>ALLOW_PAGE_LOCKS</span> = <span>ON</span> , 
+     <span>ALLOW_ROW_LOCKS</span> = <span>ON</span> )
+<span>GO</span>
+
+<span>CREATE TABLE</span> Clientes 
+    (
+     id <span>INTEGER</span> <span>NOT NULL</span> , 
+     nombre <span>VARCHAR</span> (20) <span>NOT NULL</span> , 
+     identificador <span>INTEGER</span> <span>NOT NULL</span> , 
+     estadoCliente <span>BIT NOT NULL</span> 
+    )
+<span>GO</span>
+
+<span>ALTER TABLE</span> Clientes <span>ADD CONSTRAINT</span> Clientes_PK <span>PRIMARY KEY CLUSTERED</span> (id)
+     <span>WITH</span> (
+     <span>ALLOW_PAGE_LOCKS</span> = <span>ON</span> , 
+     <span>ALLOW_ROW_LOCKS</span> = <span>ON</span> )
+<span>GO</span>
+
+<span>CREATE TABLE</span> Ventas 
+    (
+     id <span>INTEGER</span> <span>NOT NULL</span> , 
+     idCliente <span>INTEGER</span> <span>NOT NULL</span> , 
+     idArticulo <span>INTEGER</span> <span>NOT NULL</span> , 
+     fechaDeVenta <span>DATE NOT NULL</span> , 
+     cantidad <span>INTEGER</span> <span>NOT NULL</span> , 
+     total <span>INTEGER</span> <span>NOT NULL</span> , 
+     Clientes_id <span>INTEGER</span> <span>NOT NULL</span> 
+    )
+<span>GO</span>
+
+<span>ALTER TABLE</span> Ventas <span>ADD CONSTRAINT</span> Ventas_PK <span>PRIMARY KEY CLUSTERED</span> (id)
+     <span>WITH</span> (
+     <span>ALLOW_PAGE_LOCKS</span> = <span>ON</span> , 
+     <span>ALLOW_ROW_LOCKS</span> = <span>ON</span> )
+<span>GO</span>
+
+<span>ALTER TABLE</span> Articulo 
+    <span>ADD CONSTRAINT</span> Articulo_Ventas_FK <span>FOREIGN KEY</span> 
+    ( 
+     Ventas_id
+    ) 
+    <span>REFERENCES</span> Ventas 
+    ( 
+     id 
+    ) 
+    <span>ON DELETE CASCADE</span> 
+    <span>ON UPDATE NO ACTION</span> 
+<span>GO</span>
+
+<span>ALTER TABLE</span> Ventas 
+    <span>ADD CONSTRAINT</span> Ventas_Clientes_FK <span>FOREIGN KEY</span> 
+    ( 
+     Clientes_id
+    ) 
+    <span>REFERENCES</span> Clientes 
+    ( 
+     id 
+    ) 
+    <span>ON DELETE CASCADE</span> 
+    <span>ON UPDATE NO ACTION</span> 
+<span>GO</span>
+    </div>
+    <div style="width: 100%; text-align: center; margin: 50px;">
+        <a href="codigo.sql" style="color: white; font-size: larger;">Descargar código SQL</a>
+    </div>
+</body>
+</html>
